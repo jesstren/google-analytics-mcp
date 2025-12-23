@@ -7,4 +7,4 @@ RUN pip install .
 
 EXPOSE 8080
 
-CMD ["sh"]
+CMD ["analytics-mcp"]
