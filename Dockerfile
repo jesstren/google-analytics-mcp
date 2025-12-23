@@ -7,4 +7,4 @@ RUN pip install .
 
 EXPOSE 8080
 
-CMD ["analytics-mcp", "--port", "8080"]
+CMD ["sh", "-c", "echo 'GA4_PROPERTY_ID: $GA4_PROPERTY_ID' && echo 'GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS' && cat $GOOGLE_APPLICATION_CREDENTIALS && analytics-mcp --port 8080"]
