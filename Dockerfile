@@ -16,7 +16,7 @@ RUN RELEASE_URL=$(curl -s https://api.github.com/repos/tuannvm/slack-mcp-client/
     find /tmp -name "slack-mcp-client" -type f -exec mv {} /usr/local/bin/slack-mcp-client \; && \
     chmod +x /usr/local/bin/slack-mcp-client && \
     rm -rf /tmp/slack-mcp-client* && \
-    slack-mcp-client --version
+    which slack-mcp-client
 
 # Install pipx and analytics-mcp
 RUN pip install --no-cache-dir pipx && \
