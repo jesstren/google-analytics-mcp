@@ -13,10 +13,6 @@
     "useAgent": false,
     "useNativeTools": false,
     "customPrompt": "__PROMPT_PLACEHOLDER__"
-  },
-  "rag": {
-    "provider": "simple",
-    "db": "/app/knowledge.json"
   }
 }
 

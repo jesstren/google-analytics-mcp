@@ -36,10 +36,23 @@ if [ ! -f "$RAG_DB" ]; then
 fi
 
 # Ingest PDF files into RAG database
+# The simple provider seems to need individual file paths, not directories
 echo "Ingesting PDF files into RAG..." >&2
-if ! slack-mcp-client --config /app/config.json --rag-provider simple --rag-db "$RAG_DB" --rag-ingest /app/rag-docs 2>&1; then
-    echo "Warning: RAG ingestion failed, but continuing startup..." >&2
-    echo "RAG search may not be available until ingestion succeeds." >&2
+INGESTED=0
+for pdf_file in /app/rag-docs/*.pdf; do
+    if [ -f "$pdf_file" ]; then
+        echo "Ingesting $pdf_file..." >&2
+        if slack-mcp-client --config /app/config.json --rag-provider simple --rag-db "$RAG_DB" --rag-ingest "$pdf_file" 2>&1; then
+            echo "Successfully ingested $pdf_file" >&2
+            INGESTED=1
+        else
+            echo "Warning: Failed to ingest $pdf_file" >&2
+        fi
+    fi
+done
+
+if [ $INGESTED -eq 0 ]; then
+    echo "Warning: No PDF files were successfully ingested. RAG search may not be available." >&2
 fi
 
 # Start slack-mcp-client
