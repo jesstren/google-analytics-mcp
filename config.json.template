@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "analytics-mcp": {
+      "command": "analytics-mcp",
+      "args": [],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/etc/secrets/credentials.json",
+        "GOOGLE_PROJECT_ID": "virtual-guru-471115-p2"
+      }
+    }
+  },
+  "llm": {
+    "useAgent": false,
+    "useNativeTools": false,
+    "customPrompt": "__PROMPT_PLACEHOLDER__"
+  },
+  "rag": {
+    "provider": "simple",
+    "db": "/app/knowledge.json"
+  }
+}
+

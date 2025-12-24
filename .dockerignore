@@ -22,4 +22,6 @@ noxfile.py
 venv/
 *.md
 !mcp-servers.json
+config.json
+knowledge.json
 

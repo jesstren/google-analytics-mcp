@@ -37,7 +37,10 @@ Analytics Request Flow:
 When users ask for analytics data:
 	1.	Identify the property ID (explicitly mentioned or inferred from product name)
 	2.	Parse the requested date range
-	3.	Extract requested metrics and dimensions
+	3.	Extract requested metrics and dimensions:
+		•	If the user requests a metric using natural language (e.g., "engagement time", "conversion rate", "bounce rate"), FIRST search the RAG database to find the correct API metric name
+		•	Use the RAG search to map user-friendly metric names to the exact API names required by the run_report tool
+		•	Only proceed with the tool call once you have the correct API metric name
 	4.	Trigger run_report or run_realtime_report
 	5.	Present results clearly and concisely
 

@@ -22,9 +22,15 @@ RUN pip install --no-cache-dir analytics-mcp
 # Set working directory
 WORKDIR /app
 
-# Copy configuration files
-COPY config.json /app/config.json
+# Copy configuration template and prompt file
+COPY config.json.template /app/config.json.template
+COPY analytics-assistant-prompt.txt /app/analytics-assistant-prompt.txt
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-# Run the slack-mcp-client with config.json (includes llm.customPrompt)
-# Disable metrics server (port 0) to avoid Render health check issues
-CMD ["slack-mcp-client", "--config", "/app/config.json", "--metrics-port", "0"]
+# Create directory for RAG documents and copy PDF
+RUN mkdir -p /app/rag-docs
+COPY "GA4 API Dimensions & Metrics.pdf" /app/rag-docs/
+
+# Use startup script that injects prompt at runtime
+CMD ["/app/start.sh"]
