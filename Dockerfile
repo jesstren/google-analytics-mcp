@@ -30,7 +30,7 @@ RUN chmod +x /app/start.sh
 
 # Create directory for RAG documents and copy PDF
 RUN mkdir -p /app/rag-docs
-COPY "GA4 API Dimensions & Metrics.pdf" /app/rag-docs/
+COPY ga4-metrics-reference.pdf /app/rag-docs/
 
 # Use startup script that injects prompt at runtime
 CMD ["/app/start.sh"]
