@@ -26,4 +26,5 @@ WORKDIR /app
 COPY config.json /app/config.json
 
 # Run the slack-mcp-client with config.json (includes llm.customPrompt)
-CMD ["slack-mcp-client", "--config", "/app/config.json"]
+# Disable metrics server (port 0) to avoid Render health check issues
+CMD ["slack-mcp-client", "--config", "/app/config.json", "--metrics-port", "0"]
