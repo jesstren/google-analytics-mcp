@@ -9,14 +9,12 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and install slack-mcp-client binary
-# Get the latest release version and download the binary
-RUN RELEASE_URL=$(curl -s https://api.github.com/repos/tuannvm/slack-mcp-client/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) && \
-    curl -L "$RELEASE_URL" -o /tmp/slack-mcp-client.tar.gz && \
+# Download a specific known-good release for Linux amd64
+RUN curl -L "https://github.com/tuannvm/slack-mcp-client/releases/download/v2.8.3/slack-mcp-client_2.8.3_linux_amd64.tar.gz" -o /tmp/slack-mcp-client.tar.gz && \
     tar -xzf /tmp/slack-mcp-client.tar.gz -C /tmp && \
     find /tmp -name "slack-mcp-client" -type f -exec mv {} /usr/local/bin/slack-mcp-client \; && \
     chmod +x /usr/local/bin/slack-mcp-client && \
-    rm -rf /tmp/slack-mcp-client* && \
-    which slack-mcp-client
+    rm -rf /tmp/slack-mcp-client*
 
 # Install pipx and analytics-mcp
 RUN pip install --no-cache-dir pipx && \
