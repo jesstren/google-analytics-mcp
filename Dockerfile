@@ -24,6 +24,7 @@ WORKDIR /app
 
 # Copy configuration files
 COPY mcp-servers.json /app/mcp-servers.json
+COPY analytics-assistant-prompt.txt /app/analytics-assistant-prompt.txt
 
-# Run the slack-mcp-client
-CMD ["slack-mcp-client", "--config", "/app/mcp-servers.json"]
+# Run the slack-mcp-client with custom system prompt
+CMD ["slack-mcp-client", "--config", "/app/mcp-servers.json", "--system-prompt", "/app/analytics-assistant-prompt.txt"]

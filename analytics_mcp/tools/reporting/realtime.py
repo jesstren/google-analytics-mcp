@@ -14,7 +14,7 @@
 
 """Tools for running realtime reports using the Data API."""
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from analytics_mcp.coordinator import mcp
 from analytics_mcp.tools.utils import (
@@ -81,9 +81,9 @@ async def run_realtime_report(
     property_id: int | str,
     dimensions: List[str],
     metrics: List[str],
-    dimension_filter: Dict[str, Any] = None,
-    metric_filter: Dict[str, Any] = None,
-    order_bys: List[Dict[str, Any]] = None,
+    dimension_filter: Optional[Dict[str, Any]] = None,
+    metric_filter: Optional[Dict[str, Any]] = None,
+    order_bys: Optional[List[Dict[str, Any]]] = None,
     limit: int = None,
     offset: int = None,
     return_property_quota: bool = False,

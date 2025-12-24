@@ -14,7 +14,7 @@
 
 """Tools for running core reports using the Data API."""
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from analytics_mcp.coordinator import mcp
 from analytics_mcp.tools.reporting.metadata import (
@@ -84,9 +84,9 @@ async def run_report(
     date_ranges: List[Dict[str, str]],
     dimensions: List[str],
     metrics: List[str],
-    dimension_filter: Dict[str, Any] = None,
-    metric_filter: Dict[str, Any] = None,
-    order_bys: List[Dict[str, Any]] = None,
+    dimension_filter: Optional[Dict[str, Any]] = None,
+    metric_filter: Optional[Dict[str, Any]] = None,
+    order_bys: Optional[List[Dict[str, Any]]] = None,
     limit: int = None,
     offset: int = None,
     currency_code: str = None,
