@@ -170,7 +170,7 @@ Create a file called `mcp-servers.json` in your project directory (same folder a
         "analytics-mcp"
       ],
       "env": {
-        "GOOGLE_APPLICATION_CREDENTIALS": "/app/credentials.json",
+        "GOOGLE_APPLICATION_CREDENTIALS": "/etc/secrets/credentials.json",
         "GOOGLE_PROJECT_ID": "YOUR_PROJECT_ID"
       }
     }
@@ -422,9 +422,11 @@ Make sure you have these files in your project directory:
    - Scroll to **"Environment"** section
    - Click **"Secret Files"** tab
    - Click **"Add Secret File"**
-   - **Path:** `/app/credentials.json`
+   - **Filename:** `credentials.json` (just the filename, no path!)
    - **Contents:** Paste the entire contents of your Google credentials JSON file
    - Click **"Save"**
+   
+   **Note:** Render will make this file available at `/etc/secrets/credentials.json` in your Docker container, which matches the path in your `mcp-servers.json` file.
 
 6. **Deploy:**
    - Click **"Create Web Service"** at the bottom
