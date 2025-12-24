@@ -23,8 +23,7 @@ RUN pip install --no-cache-dir analytics-mcp
 WORKDIR /app
 
 # Copy configuration files
-COPY mcp-servers.json /app/mcp-servers.json
+COPY config.json /app/config.json
 
-# Run the slack-mcp-client
-# Note: --system-prompt flag not available in v2.8.3, will work without custom prompt
-CMD ["slack-mcp-client", "--config", "/app/mcp-servers.json"]
+# Run the slack-mcp-client with config.json (includes llm.customPrompt)
+CMD ["slack-mcp-client", "--config", "/app/config.json"]
