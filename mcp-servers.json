@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "analytics-mcp": {
-      "command": "pipx",
-      "args": [
-        "run",
-        "analytics-mcp"
-      ],
+      "command": "analytics-mcp",
+      "args": [],
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "/etc/secrets/credentials.json",
         "GOOGLE_PROJECT_ID": "virtual-guru-471115-p2"

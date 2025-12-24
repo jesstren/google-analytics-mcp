@@ -16,19 +16,14 @@ RUN curl -L "https://github.com/tuannvm/slack-mcp-client/releases/download/v2.8.
     chmod +x /usr/local/bin/slack-mcp-client && \
     rm -rf /tmp/slack-mcp-client*
 
-# Install pipx and analytics-mcp
-RUN pip install --no-cache-dir pipx && \
-    pipx ensurepath && \
-    pipx install analytics-mcp
+# Install analytics-mcp directly with pip (simpler than pipx in Docker)
+RUN pip install --no-cache-dir analytics-mcp
 
 # Set working directory
 WORKDIR /app
 
 # Copy configuration files
 COPY mcp-servers.json /app/mcp-servers.json
-
-# Make sure pipx binaries are in PATH
-ENV PATH="/root/.local/bin:${PATH}"
 
 # Run the slack-mcp-client
 CMD ["slack-mcp-client", "--config", "/app/mcp-servers.json"]
