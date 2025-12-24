@@ -1,20 +1,22 @@
-# Multi-stage build for slack-mcp-client + analytics-mcp
-FROM golang:1.21-alpine AS builder
-
-# Install slack-mcp-client
-WORKDIR /build
-RUN go install github.com/tuannvm/slack-mcp-client@latest
-
-# Final stage with Python for analytics-mcp
+# Install slack-mcp-client + analytics-mcp
 FROM python:3.11-slim
 
-# Install system dependencies
+# Install system dependencies including curl and tar for downloading binary
 RUN apt-get update && apt-get install -y \
     ca-certificates \
+    curl \
+    tar \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the Go binary from builder
-COPY --from=builder /go/bin/slack-mcp-client /usr/local/bin/slack-mcp-client
+# Download and install slack-mcp-client binary
+# Get the latest release version and download the binary
+RUN RELEASE_URL=$(curl -s https://api.github.com/repos/tuannvm/slack-mcp-client/releases/latest | grep "browser_download_url.*linux_amd64.tar.gz" | cut -d '"' -f 4) && \
+    curl -L "$RELEASE_URL" -o /tmp/slack-mcp-client.tar.gz && \
+    tar -xzf /tmp/slack-mcp-client.tar.gz -C /tmp && \
+    find /tmp -name "slack-mcp-client" -type f -exec mv {} /usr/local/bin/slack-mcp-client \; && \
+    chmod +x /usr/local/bin/slack-mcp-client && \
+    rm -rf /tmp/slack-mcp-client* && \
+    slack-mcp-client --version
 
 # Install pipx and analytics-mcp
 RUN pip install --no-cache-dir pipx && \
